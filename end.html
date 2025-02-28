@@ -19,9 +19,10 @@
                 <select id="feeling">
                     <option value="">Chọn cảm xúc của bạn...</option>
                     <option value="happy">Vui vẻ 😊</option>
-                    <option value="normal">Bình thường 😐</option>
-                    <option value="sad">Buồn 😢</option>
-                    <option value="excited">Phấn khích 🤩</option>
+                    <option value="love">Yêu thương ❤️</option>
+                    <option value="excited">Phấn khích 🎉</option>
+                    <option value="grateful">Biết ơn 🙏</option>
+                    <option value="blessed">Hạnh phúc ✨</option>
                 </select>
 
                 <p class="question">Bạn muốn nhắn gửi điều gì với mình không?</p>
@@ -36,7 +37,7 @@
             </div>
         </div>
     </div>
-    <script>
+    <script type="module">
         function submitAnswers() {
             const name = document.getElementById('name').value;
             const feeling = document.getElementById('feeling').value;
@@ -77,6 +78,5 @@
             });
         }
     </script>
-    <script src="script.js"></script>
 </body>
 </html>
