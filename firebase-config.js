@@ -4,13 +4,13 @@ import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/fireb
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyC5kMZ7rGQWgHKFj3Jq-YQ5y0K9T6Y1xmY",
-  authDomain: "love-letter-2024.firebaseapp.com",
-  databaseURL: "https://love-letter-2024-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "love-letter-2024",
-  storageBucket: "love-letter-2024.appspot.com",
-  messagingSenderId: "485134113871",
-  appId: "1:485134113871:web:9d4af3ea2f9a6fa595a8c2"
+  apiKey: "AIzaSyBQkuqhpQN_FUkJNK_PFTwxvlbBEGxGD_I",
+  authDomain: "dinhkhoi121-3ec40.firebaseapp.com",
+  databaseURL: "https://dinhkhoi121-3ec40-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "dinhkhoi121-3ec40",
+  storageBucket: "dinhkhoi121-3ec40.appspot.com",
+  messagingSenderId: "1098355216138",
+  appId: "1:1098355216138:web:b2b1b3b3b3b3b3b3b3b3b3"
 };
 
 // Initialize Firebase
