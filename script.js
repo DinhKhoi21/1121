@@ -96,5 +96,10 @@ function createHearts() {
     }
 }
 
-// Make submitAnswers available globally
-window.submitAnswers = submitAnswers;
+// Add event listener when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    const submitButton = document.getElementById('submit-btn');
+    if (submitButton) {
+        submitButton.addEventListener('click', submitAnswers);
+    }
+});

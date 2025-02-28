@@ -28,7 +28,7 @@
                 <p class="question">Bạn muốn nhắn gửi điều gì với mình không?</p>
                 <textarea id="message" placeholder="Viết lời nhắn của bạn..."></textarea>
 
-                <button id="submit-btn" onclick="submitAnswers()">Gửi 💌</button>
+                <button id="submit-btn">Gửi 💌</button>
             </div>
             <div id="result" style="display: none;">
                 <h2>Cảm ơn bạn! ❤️</h2>
@@ -37,46 +37,6 @@
             </div>
         </div>
     </div>
-    <script type="module">
-        function submitAnswers() {
-            const name = document.getElementById('name').value;
-            const feeling = document.getElementById('feeling').value;
-            const message = document.getElementById('message').value;
-
-            if (!name || !feeling) {
-                alert('Vui lòng điền đầy đủ thông tin!');
-                return;
-            }
-
-            // Send data to backend
-            fetch('api/responses.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    name: name,
-                    feeling: feeling,
-                    message: message
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    document.getElementById('question-container').style.display = 'none';
-                    document.getElementById('result').style.display = 'block';
-                    document.getElementById('response-message').textContent = 
-                        `Cảm ơn ${name} đã chia sẻ! 💖`;
-                    createHearts();
-                } else {
-                    alert('Có lỗi xảy ra. Vui lòng thử lại!');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Có lỗi xảy ra. Vui lòng thử lại!');
-            });
-        }
-    </script>
+    <script type="module" src="script.js"></script>
 </body>
 </html>
