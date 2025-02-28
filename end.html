@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>❤️ Lời Chúc & Câu Hỏi</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><text y='16'>❤️</text></svg>">
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>💝 Gửi Lời Chúc & Câu Hỏi 💝</h1>
+            <div id="question-container">
+                <p class="question">Bạn có thể cho mình biết tên của bạn không? 😊</p>
+                <input type="text" id="name" placeholder="Nhập tên của bạn...">
+                
+                <p class="question">Hôm nay bạn cảm thấy thế nào?</p>
+                <select id="feeling">
+                    <option value="">Chọn cảm xúc của bạn...</option>
+                    <option value="happy">Vui vẻ 😊</option>
+                    <option value="normal">Bình thường 😐</option>
+                    <option value="sad">Buồn 😢</option>
+                    <option value="excited">Phấn khích 🤩</option>
+                </select>
+
+                <p class="question">Bạn muốn nhắn gửi điều gì với mình không?</p>
+                <textarea id="message" placeholder="Viết lời nhắn của bạn..."></textarea>
+
+                <button id="submit-btn" onclick="submitAnswers()">Gửi 💌</button>
+            </div>
+            <div id="result" style="display: none;">
+                <h2>Cảm ơn bạn! ❤️</h2>
+                <p id="response-message"></p>
+                <div class="hearts-animation" id="hearts"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function submitAnswers() {
+            const name = document.getElementById('name').value;
+            const feeling = document.getElementById('feeling').value;
+            const message = document.getElementById('message').value;
+
+            if (!name || !feeling) {
+                alert('Vui lòng điền đầy đủ thông tin!');
+                return;
+            }
+
+            // Send data to backend
+            fetch('api/responses.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: name,
+                    feeling: feeling,
+                    message: message
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('question-container').style.display = 'none';
+                    document.getElementById('result').style.display = 'block';
+                    document.getElementById('response-message').textContent = 
+                        `Cảm ơn ${name} đã chia sẻ! 💖`;
+                    createHearts();
+                } else {
+                    alert('Có lỗi xảy ra. Vui lòng thử lại!');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Có lỗi xảy ra. Vui lòng thử lại!');
+            });
+        }
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

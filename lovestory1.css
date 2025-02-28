@@ -1,0 +1,199 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container {
+    width: 100%;
+    max-width: 600px;
+}
+
+.love-story {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.image {
+    width: 100%;
+    position: relative;
+    text-align: center;
+}
+
+img {
+    width: 100%;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.h1 {
+    margin: 20px 0;
+}
+
+h1 {
+    color: #ff6b6b;
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.Btn {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn1, .btn2 {
+    padding: 12px 25px;
+    font-size: 16px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: #ff6b6b;
+    color: white;
+    box-shadow: 0 5px 15px rgba(255, 107, 107, 0.2);
+}
+
+.btn1:hover, .btn2:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
+}
+
+.btn2 {
+    background: #4ecdc4;
+    box-shadow: 0 5px 15px rgba(78, 205, 196, 0.2);
+}
+
+.btn2:hover {
+    box-shadow: 0 8px 20px rgba(78, 205, 196, 0.4);
+}
+
+/* Hiệu ứng cho câu trả lời sai */
+.wrong-answer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 0, 0, 0.2);
+    z-index: 1000;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    animation: flash 0.5s;
+}
+
+.wrong-symbol {
+    font-size: 150px;
+    color: red;
+    animation: shake 0.5s;
+}
+
+@keyframes flash {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translate(0, 0) rotate(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translate(-10px, 0) rotate(-5deg); }
+    20%, 40%, 60%, 80% { transform: translate(10px, 0) rotate(5deg); }
+}
+
+/* Styles for correct answer animation */
+.correct-answer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.correct-symbol {
+    font-size: 100px;
+    color: #4CAF50;
+    animation: scaleIn 0.5s ease-in-out;
+    background: rgb(173, 224, 161);
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@keyframes scaleIn {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.correct-answer.animate {
+    animation: fadeOut 1s ease-in-out forwards;
+    animation-delay: 0.5s;
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+/* Responsive styles */
+@media screen and (max-width: 768px) {
+    body {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+
+    .btn1, .btn2 {
+        padding: 10px 20px;
+        font-size: 14px;
+        width: 100%;
+        margin: 5px 0;
+    }
+
+    .Btn {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .wrong-symbol {
+        font-size: 120px;
+    }
+}
