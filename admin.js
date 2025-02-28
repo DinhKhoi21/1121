@@ -1,4 +1,4 @@
-import { database, ref, get, child, set } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+import { getDatabase, ref, get, child, set } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 
 // Firebase configuration
@@ -14,14 +14,14 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const db = database(app);
+const db = getDatabase(app);
 
 // Admin credentials (in a real app, this should be stored securely)
 const ADMIN_USERNAME = 'admin';
 const ADMIN_PASSWORD = 'love2024'; 
 
 // Login function
-function login(event) {
+export function login(event) {
     event.preventDefault();
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
@@ -48,7 +48,7 @@ async function loadResponses() {
             displayResponses(responses);
         } else {
             console.log("No data available");
-            document.getElementById('responsesContainer').innerHTML = '<p class="text-center">Chưa có phản hồi nào.</p>';
+            document.getElementById('responseContainer').innerHTML = '<p class="text-center">Chưa có phản hồi nào.</p>';
         }
     } catch (error) {
         console.error("Error loading responses:", error);
@@ -64,45 +64,39 @@ function updateDashboardStats(responses) {
     document.getElementById('totalResponses').textContent = responsesArray.length;
     
     const todayResponses = responsesArray.filter(response => 
-        response.created_at && response.created_at.startsWith(today)
+        response.timestamp && response.timestamp.startsWith(today)
     ).length;
     document.getElementById('todayResponses').textContent = todayResponses;
 }
 
 // Display responses in the container
 function displayResponses(responses) {
-    const container = document.getElementById('responsesContainer');
+    const container = document.getElementById('responseContainer');
     container.innerHTML = '';
     
-    Object.entries(responses)
-        .sort((a, b) => new Date(b[1].created_at) - new Date(a[1].created_at))
-        .forEach(([key, response]) => {
-            const card = document.createElement('div');
-            card.className = 'card response-card mb-3';
-            card.innerHTML = `
-                <div class="card-body">
-                    <h5 class="card-title"> ${escapeHtml(response.name)}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">
-                        Cảm xúc: ${getFeelingEmoji(response.feeling)} ${escapeHtml(response.feeling)}
-                    </h6>
-                    <p class="card-text">${escapeHtml(response.message)}</p>
-                    <div class="timestamp">
-                        ${new Date(response.created_at).toLocaleString('vi-VN')}
-                    </div>
-                </div>
-            `;
-            container.appendChild(card);
-        });
+    Object.entries(responses).reverse().forEach(([key, response]) => {
+        const card = document.createElement('div');
+        card.className = 'card response-card';
+        card.innerHTML = `
+            <div class="card-body">
+                <h5 class="card-title">${escapeHtml(response.name)} ${getFeelingEmoji(response.feeling)}</h5>
+                <p class="card-text">${escapeHtml(response.message)}</p>
+                <p class="timestamp">${new Date(response.timestamp).toLocaleString('vi-VN')}</p>
+            </div>
+        `;
+        container.appendChild(card);
+    });
 }
 
 function getFeelingEmoji(feeling) {
     const emojis = {
         'happy': '😊',
-        'normal': '😐',
-        'sad': '😢',
-        'excited': '🤩'
+        'love': '❤️',
+        'excited': '🥳',
+        'grateful': '🙏',
+        'blessed': '✨'
     };
-    return emojis[feeling] || '❓';
+    return emojis[feeling] || '';
 }
 
 function escapeHtml(unsafe) {
